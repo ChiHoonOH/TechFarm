@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itbank.TechFarm.tfPlus.MyProfileMapper">
+
+	<select id="myProfileList"  resultType="myProfileDTO">
+		SELECT * FROM myprofile
+	</select>
+	
+	<select id="myProfileAllList" resultType="myProfileDTO">
+		SELECT * FROM myprofile
+	</select>
+	
+	<select id="myProfilePhoto" resultType="myProfileDTO" parameterType="String">
+		SELECT * FROM myprofile
+			WHERE myId = #{myId}
+	</select>
+
+	<insert id="myProfileInsert" parameterType="myProfileDTO" useGeneratedKeys="true">
+		INSERT INTO myprofile(hobby,photo,myId) VALUES
+		(
+			#{hobby},
+			#{photo},
+			#{myId}
+		)
+	</insert>
+	
+	<update id="myProfileUpdate" parameterType="java.util.HashMap">
+		UPDATE myprofile SET photo = #{photo},hobby = #{hobby}
+			WHERE myId = #{myId}	
+	</update>
+
+</mapper>

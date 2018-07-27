@@ -1,0 +1,95 @@
+
+select.selectWriting {
+  width: 200px;
+  padding: .8em .5em;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;  
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 1px solid #999;
+  border-radius: 0px;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.subMenu {
+	position: relative;
+	left: 0; top: 50%;
+	background: #333;
+	display: none;
+	font: 10px bold;
+	color:#ffffff;
+	padding:10px 0;
+	text-align:center;
+}
+
+/*서브메뉴 한칸 제어*/
+.subMenu li {
+	background:#ffffff;
+	padding:5px;
+	width:100%;
+	text-align:center;
+	border-bottom:1px solid #222;
+	border-top:1px solid #444;
+	cursor:pointer;
+}
+
+/*서브메뉴 마우스 오버시*/
+.subMenu li:hover {
+	background:#ffffff;
+}
+.subMenuDiv div{
+}
+
+#img_center {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#img_size {
+	width:350px;
+	height:300px;
+}
+
+table.jjm494_myProfile {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    border-left: 3px solid #000000;
+  margin : 20px 10px;
+}
+table.jjm494_myProfile th {
+    width: 50px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #000000;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+
+}
+table.jjm494_myProfile td {
+    width: 90%;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

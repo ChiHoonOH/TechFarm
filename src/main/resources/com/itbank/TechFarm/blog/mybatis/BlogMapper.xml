@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.TechFarm.blog.mybatis.BlogMapper">
+
+  <!-- mybatis에서는 프로퍼티와 컬럼명이 같은면 안써도 상관없다.(즉, ibatis에서 사용하던 rowmapper같은거 따로 안적어도 상관없음 그냥 DTO로 받으면된다. -->
+
+  <!-- Select with no parameters using the result map for Account class. -->
+  
+  <insert id="makeBlog" parameterType="BlogOptionDTO">
+  insert into blog_option values(#{id},#{blogname},#{layout},#{headerword},#{nickname},#{introduce},#{profile},#{background},#{header},#{visitornum})
+  </insert>
+  
+  <select resultType="BlogOptionDTO" id="getBlog" parameterType="String">
+  select * from blog_option where id=#{id}
+  </select>
+  
+  <delete parameterType="String" id="deleteBlog">
+  delete from blog_option where id=#{id}
+  </delete>
+  
+  <insert id="makeBoard" parameterType="BlogMakeBoardDTO" useGeneratedKeys="true">
+  insert into blog_makeboard (sideno,id,title) values(#{sideno},#{id},#{title})
+  </insert>
+  
+  <update id="updateVisitornum" parameterType="String">	
+  update blog_option set visitornum = visitornum + 1 where id=#{id}
+  </update>
+  
+  <select resultType="BlogMakeBoardDTO" id="listBoardTitle" parameterType="String">
+  select * from blog_makeboard where id=#{id}
+  </select>
+  
+  <update id="editBlog_pf_int" parameterType="BlogOptionDTO">
+  update blog_option set profile=#{profile},introduce=#{introduce} where id=#{id}
+  </update>
+  
+  <update id="editBlog_layout" parameterType="BlogOptionDTO">
+  update blog_option set layout=#{layout} where id=#{id}
+  </update>
+  
+  <update id="editBlog_skin" parameterType="BlogOptionDTO">
+  update blog_option set profile=#{profile},header=#{header} where id=#{id}
+  </update>
+  
+  <update id="editBlog_headerword" parameterType="BlogOptionDTO">
+  update blog_option set headerword=#{headerword} where id=#{id}
+  </update>
+  
+  <select resultType="BlogMakeBoardDTO" id="getBoardT" parameterType="int">
+  select * from blog_makeboard where boardno=#{boardno}
+  </select>
+  
+  <update id="editBoardT" parameterType="BlogMakeBoardDTO">
+  update blog_makeboard set sideno=#{sideno},title=#{title} where boardno=#{boardno}
+  </update>
+  
+  <select resultType="BlogBoardDTO" id="listBoard" parameterType="hashMap">
+  <!-- select * from blog_board where boardno=#{boardno} order by no desc -->
+  SELECT * FROM (SELECT @NO:=@NO+1 AS ROWNUM, a.* FROM (SELECT * FROM blog_board where boardno=#{boardno} and 1 > open order by no desc)a,
+  (SELECT @NO:=0)b)c WHERE c.ROWNUM BETWEEN #{startRow} AND #{endRow}
+  </select>
+  
+  <select parameterType="int" resultType="int" id="boardNumber"> 
+  select count(*) from blog_board where boardno=#{boardno}
+  </select>
+  
+  <insert id="insertBoard" parameterType="BlogBoardDTO" useGeneratedKeys="true">
+  insert into blog_board (id,area,subject,content,file1,readcount,reply,open,boardno,title) 
+  values(#{id},#{area},#{subject},#{content},#{file1},#{readcount},#{reply},#{open},#{boardno},#{title})
+  </insert>
+  
+  <select resultType="BlogBoardDTO" id="getBoard" parameterType="int">
+  select * from blog_board where no=#{no}
+  </select>
+  
+  <select resultType="BlogBoardDTO" id="listMyBoard" parameterType="String">
+  select * from blog_board where id=#{id} and 1 > open order by no desc limit 5
+  </select>
+  
+  <update id="updateReadcount" parameterType="int">	
+  update blog_board set readcount = readcount + 1 where no=#{no}
+  </update>
+  
+  <update id="updateBoard" parameterType="BlogBoardDTO">
+  update blog_board set area=#{area},subject=#{subject},content=#{content},file1=#{file1},open=#{open} where no=#{no}
+  </update>
+  
+  <delete parameterType="int" id="deleteBoard">
+  delete from blog_board where no=#{no}
+  </delete>
+  
+  <insert id="insertReply" parameterType="BlogReplyDTO" useGeneratedKeys="true">
+  insert into blog_boardreply (no,id,repcontent,re_level,re_step,profile) 
+  values(#{no},#{id},#{repcontent},#{re_level},#{re_step},#{profile})
+  </insert>
+  
+  <update id="updateReplyNumber" parameterType="int">	
+  update blog_board set reply = reply + 1 where no=#{no}
+  </update>
+  
+  <update id="minusReplyNumber" parameterType="int">	
+  update blog_board set reply = reply - 1 where no=#{no}
+  </update>
+  
+  <update id="updateRestep">	
+  update blog_boardreply set re_step = re_step + 1 
+  </update>
+  
+  <update parameterType="BlogReplyDTO" id="updateRerestep">	
+  update blog_boardreply set re_step = re_step + 1 where re_step > #{re_step} 
+  </update>
+  
+  <select parameterType="hashMap" resultType="BlogReplyDTO" id="listReply"> 
+  SELECT * FROM (SELECT @NO:=@NO+1 AS ROWNUM, a.* FROM (SELECT * FROM blog_boardreply where no=#{no} order by re_step asc)a,
+  (SELECT @NO:=0)b)c WHERE c.ROWNUM BETWEEN #{startRow} AND #{endRow}
+  </select>
+  
+  <delete parameterType="int" id="deleteReply">
+  delete from blog_boardreply where replyno=#{replyno}
+  </delete>
+  
+  <select parameterType="int" resultType="int" id="replyNumber"> 
+  select count(*) from blog_boardreply where no=#{no}
+  </select>
+  
+  <select resultType="BlogBoardDTO" id="listNewBoard">  
+  select * from blog_board where 1 > open order by no desc limit 10
+  </select>
+  
+  <select resultType="String" id="listNewProfile">
+  select profile from blog_option c join (select a.* from (select id from blog_board where 1 > open order by no desc limit 10)a)b on c.id=b.id;
+  </select>
+  
+  <select resultType="BlogBoardDTO" id="listHotBoard">  
+  select * from blog_board where 1 > open order by readcount desc limit 10
+  </select>
+  
+  <select resultType="String" id="listHotProfile">
+  select profile from blog_option c join (select a.* from (select id from blog_board where 1 > open order by readcount desc limit 10)a)b on c.id=b.id;
+  </select>
+
+  <select resultType="BlogOptionDTO" id="listHotBlog">  
+  select * from blog_option order by visitornum desc limit 3
+  </select>
+
+  <select resultType="BlogBoardDTO" id="listAreaBoard1" parameterType="hashMap">  
+  <!-- select * from blog_board where 8 >= area and  area >=0  -->
+  SELECT * FROM (SELECT @NO:=@NO+1 AS ROWNUM, a.* FROM (select * from blog_board where 8 >= area and  area >=0 and 1 > open order by no desc)a,
+  (SELECT @NO:=0)b)c WHERE c.ROWNUM BETWEEN #{startRow} AND #{endRow} 
+  </select>
+  
+  <select resultType="int" id="areaboardNumber1"> 
+  select count(*) from blog_board where 8 >= area and  area >=0 and 1 > open
+  </select>
+  
+  <select resultType="BlogBoardDTO" id="listAreaBoard2" parameterType="hashMap">   
+  <!-- select * from blog_board where 16 >= area and  area >=9 -->
+   SELECT * FROM (SELECT @NO:=@NO+1 AS ROWNUM, a.* FROM (select * from blog_board where 16 >= area and area >=9 and 1 > open order by no desc)a,
+  (SELECT @NO:=0)b)c WHERE c.ROWNUM BETWEEN #{startRow} AND #{endRow} 
+  </select>
+  
+  <select resultType="int" id="areaboardNumber2"> 
+  select count(*) from blog_board where 16 >= area and  area >=9 and 1 > open
+  </select>
+  
+  <select resultType="BlogBoardDTO" id="listAreaBoard3" parameterType="hashMap">  
+  <!-- select * from blog_board where 24 >= area and  area >=17 -->
+  SELECT * FROM (SELECT @NO:=@NO+1 AS ROWNUM, a.* FROM (select * from blog_board where 24 >= area and area >=17 and 1 > open order by no desc)a,
+  (SELECT @NO:=0)b)c WHERE c.ROWNUM BETWEEN #{startRow} AND #{endRow}  
+  </select>
+  
+  <select resultType="int" id="areaboardNumber3"> 
+  select count(*) from blog_board where 24 >= area and area >=17 and 1 > open
+  </select>
+  
+  <select resultType="BlogBoardDTO" id="listAreaBoard4" parameterType="hashMap">  
+  <!-- select * from blog_board where 30 >= area and  area >=25 -->
+  SELECT * FROM (SELECT @NO:=@NO+1 AS ROWNUM, a.* FROM (select * from blog_board where 30 >= area and area >=25 and 1 > open order by no desc)a,
+  (SELECT @NO:=0)b)c WHERE c.ROWNUM BETWEEN #{startRow} AND #{endRow}  
+  </select>
+  
+  <select resultType="int" id="areaboardNumber4"> 
+  select count(*) from blog_board where 30 >= area and area >=25 and 1 > open
+  </select>
+
+  <select resultType="BlogOptionDTO" id="searchBlog" parameterType="hashMap">
+  select * from blog_option where ${search_option} like CONCAT('%',#{search_text},'%');
+  </select>
+  
+  <select resultType="BlogBoardDTO" id="searchBoard" parameterType="hashMap">
+  select * from blog_board where ${search_option} like CONCAT('%',#{search_text},'%') and 1 > open;
+  </select>
+  
+  <select parameterType="String" resultType="BlogBoardDTO" id="imsiboard"> 
+  select * from blog_board where id=#{id} and open>0;
+  </select>
+  
+  <select parameterType="String" resultType="int" id="myBoardNumber"> 
+  select count(*) from blog_board where id=#{id}
+  </select>
+  
+  <select parameterType="String" resultType="int" id="myReplyNumber"> 
+  select count(*) from blog_boardreply where id=#{id}
+  </select>
+  
+  <insert id="addNeighbor" parameterType="BlogNeighborDTO" useGeneratedKeys="true">
+  insert into blog_neighbor (id,neighborid) values(#{id},#{neighborid})
+  </insert>
+  
+  <select resultType="BlogNeighborDTO" id="neighborList" parameterType="String">
+  select * from blog_neighbor where id=#{id}
+  </select>
+  
+  <select resultType="String" id="listNeighborProfile" parameterType="String">
+  select profile from blog_option c join (select a.* from (select * from blog_neighbor where id=#{id})a)b on c.id=b.id;
+  </select>
+  
+  <delete parameterType="int" id="deleteNeighbor">
+  delete from blog_neighbor where neighborno=#{neighborno}
+  </delete>
+  
+  <delete parameterType="String" id="deleteAllmyBoard">
+  delete from blog_board where id=#{id}
+  </delete>
+  
+  <update id="editReply_pf" parameterType="BlogReplyDTO">
+  update blog_boardreply set profile=#{profile} where id=#{id}
+  </update>
+  
+</mapper>

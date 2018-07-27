@@ -1,0 +1,6 @@
+.settings
+.classpath
+.project
+.springBeans
+target
+src/main/resources/com/itbank/techfarm/db.properties

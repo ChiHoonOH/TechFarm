@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.itbank.TechFarm.tftube.mybatis.LikeVideoMapper">
+
+
+<select id="likevideo_list" parameterType="java.util.HashMap" resultType="likevideoDTO">
+select * from tftube_like where member_no=#{member_no} and video_no=#{video_no}
+</select>
+
+<insert id="like_insert" parameterType="likevideoDTO">
+insert into tftube_like(member_no,video_no,like_status)values(#{member_no},#{video_no},1)
+</insert>
+
+<!-- Supposed to pratice. there is a need to implements by the other method --> 
+<delete id="like_delete" parameterType="java.util.HashMap">
+delete from tftube_like where member_no=#{member_no} and video_no=#{video_no}
+</delete>
+
+<select id="likecount" parameterType="int" resultType="int">
+select count(*) from tftube_like where video_no=#{video_no}
+</select>
+
+<select id="like_member_list" parameterType="int" resultType="videoDTO">
+select b.* from tftube_like a join tftube_video b on a.video_no = b.no where a.member_no=#{member_no} order by a.like_no desc
+</select>
+
+<!-- <select id="likevideo_list_status" parameterType="java.util.HashMap" resultType="String">
+select like_status from tftube_like where member_no=#{member_no} and video_no=#{video_no}
+</select> -->
+
+<select id="likevideo_list_status" parameterType="java.util.HashMap" resultType="int">
+select like_status from tftube_like where member_no=#{member_no} and video_no=#{video_no}
+</select>
+
+
+
+ 
+ 
+
+
+<!-- 전제:한 맴버가 한 비디오당 누를 수 있는 like 갯수는 하나 뿐이다. --> 
+
+
+
+</mapper>

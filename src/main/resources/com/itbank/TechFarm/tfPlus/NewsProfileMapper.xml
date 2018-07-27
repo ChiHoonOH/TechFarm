@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itbank.TechFarm.tfPlus.NewsProfileMapper">
+	
+	<select id="tfPlusList" resultType="newsProfileDTO" parameterType="String">
+		SELECT * FROM newsprofile 
+			WHERE profileId = #{profileId}
+	</select>
+
+	<select id="tfPlusNews" resultType="newsProfileDTO" parameterType="String">
+		SELECT * FROM newsprofile
+			WHERE profileId = #{profileId} ORDER BY profileDate DESC limit 1;
+	</select>
+
+	<select id="newsGoodList" resultType="newsProfileDTO" parameterType="java.util.HashMap">
+		SELECT * FROM (
+			SELECT @NO:=@NO+1 AS ROWNUM, a.* FROM (
+				SELECT * FROM newsprofile )a,(SELECT @NO:=0)b)c 
+					WHERE c.ROWNUM BETWEEN #{startRow} AND #{endRow} ORDER BY good DESC
+	</select>
+	
+	<select id="newsAddList" resultType="NewsProfileAddCommentDTO">
+		SELECT * FROM newsprofileaddcomment ORDER BY re_step ASC
+	</select>
+	
+	<select id="followList" resultType="newsFollowIdDTO">
+		SELECT * FROM newsfollowid
+	</select>
+	
+	<select id="newsMyList" resultType="newsProfileDTO" parameterType="java.util.HashMap">
+		SELECT * FROM (
+			SELECT @NO:=@NO+1 AS ROWNUM, a.* FROM (
+				SELECT * FROM newsprofile WHERE profileId = #{id})a,(SELECT @NO:=0)b)c 
+					WHERE c.ROWNUM BETWEEN #{startRow} AND #{endRow} ORDER BY @NO DESC
+	</select>
+	
+	<select id="newsFollowIdSearch" resultType="newsFollowIdDTO" parameterType="int">
+		SELECT * FROM newsfollowid 
+			WHERE newsfollowNum = #{num}
+	</select>
+	
+	<select id="newsProfileCheck" resultType="newsProfileDTO" parameterType="java.util.HashMap">
+		SELECT * FROM newsprofile 
+			WHERE profileName = #{profileName} AND profileId = #{profileId}
+	</select>
+	
+	<select id="newsFollowIdCheck" resultType="newsFollowIdDTO" parameterType="java.util.HashMap">
+		SELECT * FROM newsfollowid
+			WHERE newsfollowNum = #{newsFollowNum} AND newsfollowId = #{newsFollowId}
+	</select>
+	
+	<select id="newsFollowMyList" resultType="newsFollowIdDTO" parameterType="String">
+		SELECT * FROM newsfollowid 
+			WHERE newsfollowId = #{id}
+	</select>
+	
+	<select id="newsNumList" resultType="newsProfileDTO" parameterType="int">
+		SELECT * FROM newsprofile 
+			WHERE profileNum = #{num}
+	</select>
+	
+	<select id="newsProfileCount" resultType="int">
+		SELECT count(*) FROM newsprofile
+	</select>
+	
+	<select id="newsProfileBoardList" resultType="newsProfileBoardDTO" parameterType="java.util.HashMap">
+		SELECT * FROM newsprofileboard
+			WHERE profileBoardName = #{profileName} AND profileBoardId = #{profileId}
+	</select>
+	
+	<select id="newsProfileTOP" resultType="newsProfileDTO" parameterType="int">
+		SELECT * FROM newsprofile
+			ORDER BY good DESC LIMIT #{top}
+	</select>
+	
+	<select id="newsProfileUpdate" resultType="newsProfileDTO" parameterType="int">
+		SELECT * FROM newsprofile
+			WHERE profileNum = #{profileNum}
+	</select>
+	
+	<select id="newsFollowNotice" resultType="newsFollowIdDTO" parameterType="int">
+		SELECT * FROM newsfollowid
+			WHERE newsfollowNum = #{profileNum}
+	</select>
+	
+	<select id="newsProfileBoardUpdate" resultType="newsProfileBoardDTO" parameterType="int">
+		SELECT * FROM newsprofileboard
+			WHERE profileBoardPK = #{profileBoardPK}
+	</select>
+	
+	<select id="newsProfileOption" resultType="newsProfileDTO" parameterType="String">
+		SELECT * FROM newsprofile
+			WHERE checkOption = #{option}
+	</select>
+	
+	<insert id="newsProfileInsert" parameterType="newsProfileDTO" useGeneratedKeys="true">
+		INSERT INTO newsprofile(profileName,checkOption,photo,profileContents,profileId) VALUES
+		(	
+			#{profileName},
+			#{checkOption},
+			#{photo},
+			#{profileContents},
+			#{profileId}
+		)
+	</insert>
+	
+	<insert id="newsAddListInsert" parameterType="newsProfileAddCommentDTO" useGeneratedKeys="true">
+		INSERT INTO newsprofileaddcomment(profileBoardFK,profileAddName,profileAddContents,profileAddId,re_step,re_level) VALUES
+		(
+			#{profileBoardFK},
+			#{profileAddName},
+			#{profileAddContents},
+			#{profileAddId},
+			#{re_step},
+			#{re_level}
+		)
+	</insert>
+	
+	<insert id="newsProfileBoardInsert" parameterType="newsProfileDTO" useGeneratedKeys="true">
+		INSERT INTO newsprofileboard(profileBoardPhoto,profileBoardTitle,profileBoardContents,profileBoardName,profileBoardId) VALUES
+		(
+			#{profileBoardPhoto},
+			#{profileBoardTitle},
+			#{profileBoardContents},
+			#{profileBoardName},
+			#{profileBoardId}
+		)
+	</insert>
+	
+	<insert id="newsFollowInsert" parameterType="java.util.HashMap" useGeneratedKeys="true">
+		INSERT INTO newsfollowid(newsfollowNum,newsfollowId) VALUES
+		(
+			#{profileNum},
+			#{id}
+		)
+	</insert>
+	
+	<update id="newsProfileFollow" parameterType="int">
+		UPDATE newsprofile SET good = good + 1
+			WHERE profileNum = #{profileNum}
+	</update>
+	
+	<update id="newsProfileUnFollow" parameterType="int">
+		UPDATE newsprofile SET good = good - 1
+			WHERE profileNum = #{profileNum}
+	</update>
+	
+	<update id="newsProfileUpdatePro" parameterType="newsProfileDTO">
+		UPDATE newsprofile SET 
+			profileName = #{profileName},
+			checkOption = #{checkOption}, 
+			profileContents = #{profileContents}, 
+			photo = #{photo}
+				WHERE profileNum = #{profileNum}
+	</update>
+	
+	<update id="newsProfileBoardUpdatePro" parameterType="newsProfileBoardDTO">
+		UPDATE newsprofileboard SET
+			profileBoardTitle = #{profileBoardTitle},
+			profileBoardContents = #{profileBoardContents},
+			profileBoardPhoto = #{profileBoardPhoto}
+				WHERE profileBoardPK = #{profileBoardPK}
+	</update>
+	
+	<update id="newsAddUpdateSub" parameterType="int">
+		UPDATE newsprofileaddcomment SET 
+			re_step = re_step+1 WHERE re_step > #{re_step}
+	</update>
+	
+	<update id="newsAddUpdateSub2">
+		UPDATE newsprofileaddcomment SET 
+			re_step = re_step+1
+	</update>
+	
+	<delete id="newsFollowDelete" parameterType="int">
+		DELETE FROM newsfollowid 
+			WHERE newsfollowPK = #{newsfollowPK}
+	</delete>
+	
+	<delete id="newsProfileDelete" parameterType="int">
+		DELETE FROM newsprofile
+			WHERE profileNum = #{profileNum}
+	</delete>
+	
+	<delete id="newsAddDelete" parameterType="int">
+		DELETE FROM newsprofileaddcomment
+			WHERE profileAddPK = #{profileAddPK}
+	</delete>
+	
+	<delete id="newsProfileBoardDelete" parameterType="int">
+		DELETE FROM newsprofileboard
+			WHERE profileBoardPK = #{profileBoardPK}
+	</delete>
+	
+</mapper>

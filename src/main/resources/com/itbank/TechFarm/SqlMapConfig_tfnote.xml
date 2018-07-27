@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration> 
+  <properties resource="com/itbank/TechFarm/db.properties"/>
+  <typeAliases>
+  	<typeAlias alias="NoteDTO" type="com.itbank.TechFarm.tfNoteDTO.NoteDTO" />
+  </typeAliases>
+  <environments default="development"> 
+      <environment id="development"> 
+      <transactionManager type="JDBC"/> 
+      <dataSource type="POOLED"> 
+        <property name="driver" value="${driver}"/> 
+        <property name="url" value="${url.tfnote}"/> 
+        <property name="username" value="${username.tfnote}"/> 
+        <property name="password" value="${password.tfnote}"/> 
+      </dataSource> 
+    </environment> 
+  </environments> 
+  <mappers> 
+    <mapper resource="com/itbank/TechFarm/tfNote/NoteMapper.xml"/>
+  </mappers> 
+</configuration> 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itbank.TechFarm.tfPlus.MyNoticeMapper">
+
+	<select id="myNoticeList" resultType="myNoticeDTO" parameterType="String">
+		SELECT * FROM mynotice
+			WHERE myId = #{myId}
+	</select>
+
+	<insert id="myNoticeInsert" parameterType="myNoticeDTO" useGeneratedKeys="true">
+		INSERT INTO mynotice(myId,myTitle,myNum,profileId,profileName) VALUES
+		(
+			#{myId},
+			#{myTitle},
+			#{myNum},
+			#{profileId},
+			#{profileName}
+		)
+	</insert>
+	
+	<delete id="myNoticeDelete" parameterType="int">
+		DELETE FROM mynotice
+			WHERE myNoticePK = #{myNoticePK}
+	</delete>
+
+</mapper>

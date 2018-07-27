@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration 
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration> 
+  <properties resource="com/itbank/TechFarm/db.properties"/>
+  <typeAliases>
+  	 <typeAlias alias="BlogBoardDTO" type="com.itbank.TechFarm.blog.dto.Blog_BoardDTO"/>
+  	 <typeAlias alias="BlogOptionDTO" type="com.itbank.TechFarm.blog.dto.Blog_OptionDTO"/>
+  	 <typeAlias alias="BlogMakeBoardDTO" type="com.itbank.TechFarm.blog.dto.Blog_MakeBoardDTO"/>
+  	 <typeAlias alias="BlogReplyDTO" type="com.itbank.TechFarm.blog.dto.Blog_BoardReplyDTO"/>
+  	 <typeAlias alias="BlogNeighborDTO" type="com.itbank.TechFarm.blog.dto.Blog_NeighborDTO"/>
+  </typeAliases>
+  <environments default="development"> 
+      <environment id="development"> 
+      <transactionManager type="JDBC"/>  
+      <dataSource type="POOLED"> 
+        <property name="driver" value="${driver}"/> 
+        <property name="url" value="${url.tfblog}"/> 
+        <property name="username" value="${username.tfblog}"/> 
+        <property name="password" value="${password.tfblog}"/> 
+      </dataSource> 
+    </environment> 
+  </environments> 
+  <mappers> 
+    <mapper resource="com/itbank/TechFarm/blog/mybatis/BlogMapper.xml"/>
+  </mappers> 
+</configuration> 

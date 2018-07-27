@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.itbank.TechFarm.tftube.mybatis.SubingMapper">
+
+<insert id="insertSubing" parameterType="subingDTO" useGeneratedKeys="true">
+insert into tftube_subing(member_no,subing_member_no) values(#{member_no},#{subing_member_no})  
+</insert>
+
+<select id="select_subing" parameterType="subingDTO" resultType="subingDTO">
+select * from tftube_subing where member_no=#{member_no} and subing_member_no=#{subing_member_no}
+</select>
+
+<select id="get_subing_member" parameterType="int" resultType="subing_channelDTO">
+select b.channel,a.subing_member_no from tftube_subing a join tftube_mychannel b on a.subing_member_no=b.member_no where a.member_no=#{member_no} 
+</select>
+
+<delete id="deleteSubing" parameterType="subingDTO">
+delete from tftube_subing where member_no=#{member_no} and subing_member_no=#{subing_member_no}
+</delete>
+
+<select id="get_subed_member" parameterType="int" resultType="subing_channelDTO">
+select b.channel,a.member_no from tftube_subing a join tftube_mychannel b on a.member_no=b.member_no where subing_member_no=#{subing_member_no}
+</select>
+
+
+</mapper>

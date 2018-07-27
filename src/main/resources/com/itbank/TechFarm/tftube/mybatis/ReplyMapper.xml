@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.itbank.TechFarm.tftube.mybatis.ReplyMapper">
+
+	<select id="reply_number" resultType="int" parameterType="String">
+		select count(*) from tftube_reply where re_level = 0 and video_name=#{video_name} 
+	</select>
+		
+	<select id="replyList_by_video" parameterType="String" resultType="replyformat">
+		select b.channel,a.* from tftube_reply a join tftube_mychannel b on a.member_no=b.member_no where video_name=#{video_name} order by re_step asc,no asc
+	</select>			
+	
+	<delete id="deletereply" parameterType="int">
+		delete from tftube_reply where no = #{no}
+	</delete>
+	
+	<delete id="deletereply_re_step" parameterType="int">
+		delete from tftube_reply where re_step = #{re_step}
+	</delete>
+	
+	<delete id="delete_reply_video_name" parameterType="String">
+		delete from tftube_reply where video_name = #{video_name}
+	</delete>
+	
+	<insert id="insertReply" parameterType="replyDTO" useGeneratedKeys="true">	
+		insert into tftube_reply
+		(member_no,content,video_name,re_step,re_level)
+		values(#{member_no},#{content},#{video_name},#{re_step},#{re_level})		
+	</insert>
+	
+	<update id="update_re_step">	
+		update tftube_reply set re_step = re_step + 1
+	</update>
+	
+	<update id="update_re_step_reply" parameterType="replyDTO">	
+		update tftube_reply set re_step = re_step + 1 where re_step > #{re_step}
+	</update>
+	
+	
+
+</mapper>

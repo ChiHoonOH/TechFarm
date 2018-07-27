@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.itbank.TechFarm.tftube.mybatis.RecentVideoMapper">
+
+ <insert id="insertRecent" parameterType="recentVideoDTO" useGeneratedKeys="true">
+ insert into tftube_recentvideo(member_no,video_name) values(#{member_no},#{video_name})
+ </insert>
+ 
+ <select id="listRecent_member_no" resultType="recentvideoDTO" parameterType="int">
+ select * from tftube_recentvideo where member_no=#{member_no} order by no desc 
+ </select>
+ 
+<select id="listVideo_recent" parameterType="int" resultType="Video_RecentVideoDTO">
+ select a.*,b.recent_no from tftube_video a 
+ join tftube_recentvideo b 
+ on a.video_name=b.video_name 
+ where b.member_no=#{member_no} order by b.recent_no desc  
+</select>
+
+
+<delete id="recent_delete_all" parameterType="int">
+delete from tftube_recentvideo where member_no=#{member_no}
+</delete>
+
+<delete id="recent_delete" parameterType="int">
+delete from tftube_recentvideo where recent_no=#{recent_no}
+</delete>
+
+<select id="listVideo_last" resultType="String" parameterType="int">
+select video_name from tftube_recentvideo where member_no=#{member_no} order by recent_no desc limit 1 
+</select>
+
+</mapper>

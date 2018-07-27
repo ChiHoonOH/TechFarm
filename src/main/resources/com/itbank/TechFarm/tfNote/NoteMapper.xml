@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.itbank.TechFarm.tfNote.NoteMapper">
+
+	<select id="listNote" resultType="noteDTO" parameterType="String">
+		select * from tfnote where id = #{id} order by num desc 
+	</select>
+
+    <select id="getNote" resultType="noteDTO" parameterType="int">
+		select * from tfnote where num = #{num}
+	</select>
+	
+	<delete id="deleteNote" parameterType="int">
+		delete from tfnote where num = #{num}
+	</delete>
+	
+	<insert id="insertNote" parameterType="noteDTO">
+		insert into tfnote(title,content,id,cbyte) values
+		(
+			#{title}, 
+			#{content}, 
+			#{id}, 
+			#{cbyte}
+		)
+	</insert>
+	
+	<update id="updateNote" parameterType="noteDTO">
+		update tfnote set 
+			title=#{title}, 
+			content=#{content}, 
+			id=#{id}, 
+			cbyte=#{cbyte} 
+				where num=#{num}
+	</update>
+
+</mapper>

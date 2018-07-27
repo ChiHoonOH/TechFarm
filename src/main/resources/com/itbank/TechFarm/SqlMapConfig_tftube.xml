@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration 
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration> 
+  <properties resource="com/itbank/TechFarm/db.properties"/>
+  <typeAliases>
+  	<typeAlias alias = "videoDTO" type="com.itbank.TechFarm.tftube.dto.VideoDTO"/>
+  	<typeAlias alias = "replyDTO" type="com.itbank.TechFarm.tftube.dto.ReplyDTO"/>  	
+  	<typeAlias alias = "recentvideoDTO" type="com.itbank.TechFarm.tftube.dto.RecentVideoDTO"/>
+  	<typeAlias alias = "replyformat" type="com.itbank.TechFarm.tftube.dto.ReplyDTOFormat"/>
+  	<typeAlias alias = "mychannelDTO" type="com.itbank.TechFarm.tftube.dto.MyChannelDTO"/>
+	<typeAlias alias = "subingDTO" type="com.itbank.TechFarm.tftube.dto.SubingDTO"/>  	
+  	<typeAlias alias = "MemberDTO" type="com.itbank.TechFarm.login.member.MemberDTO"/>
+  	<typeAlias alias = "video_recentvideoDTO" type="com.itbank.TechFarm.tftube.dto.Video_RecentVideoDTO"/>
+  	<typeAlias alias = "likevideoDTO" type="com.itbank.TechFarm.tftube.dto.LikeVideoDTO"/>
+  	<typeAlias alias = "unlikevideoDTO" type="com.itbank.TechFarm.tftube.dto.UnlikeVideoDTO"/>
+  	<typeAlias alias = "subing_channelDTO" type="com.itbank.TechFarm.tftube.dto.Subing_ChannelDTO"/>
+  	
+  	
+  </typeAliases>
+  <environments default="development"> 
+      <environment id="development"> 
+      <transactionManager type="JDBC"/> 
+      <dataSource type="POOLED"> 
+        <property name="driver" value="${driver}"/> 
+        <property name="url" value="${url.tftube}"/> 
+        <property name="username" value="${username.tftube}"/> 
+        <property name="password" value="${password.tftube}"/> 
+      </dataSource> 
+    </environment> 
+  </environments> 
+  <mappers>   	
+    <mapper resource="com/itbank/TechFarm/tftube/mybatis/VideoMapper.xml"/>
+    <mapper resource="com/itbank/TechFarm/tftube/mybatis/ReplyMapper.xml"/>
+    <mapper resource="com/itbank/TechFarm/tftube/mybatis/RecentVideoMapper.xml"/>
+    <mapper resource="com/itbank/TechFarm/tftube/mybatis/MyChannelMapper.xml"/>
+    <mapper resource="com/itbank/TechFarm/tftube/mybatis/SubingMapper.xml"/>    
+    <mapper resource="com/itbank/TechFarm/tftube/mybatis/LikeVideoMapper.xml"/>
+    <mapper resource="com/itbank/TechFarm/tftube/mybatis/UnlikeVideoMapper.xml"/>
+    <mapper resource="com/itbank/TechFarm/tftube/mybatis/SearchMapper.xml"/>
+  </mappers> 
+</configuration> 

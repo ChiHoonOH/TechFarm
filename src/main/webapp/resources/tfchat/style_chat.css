@@ -1,0 +1,302 @@
+@charset "utf-8";
+
+body, div, ul, li, table, tr, td, th{margin:0px; padding:0px;}
+
+ul, li{list-style:none;}
+
+html{
+	width: 100%;
+	height:100%;
+}
+
+body {
+	background: #ffffff;
+	font-size:12px;
+}
+
+#viewtitle{
+	position: absolute;
+	left: 130px; 
+	padding: 10px;
+	font-size:25px;
+	width:350px;
+	height:50px;
+	z-index:5;
+}
+
+#homebutton{
+	position: absolute;
+	left: 5px; 
+	padding: 10px;
+	font-size:25px;
+	width:350px;
+	height:50px;
+	z-index:5;
+}
+
+#header {
+	height:50px;
+	width:100%;
+	position: relative;
+	background:#ffffc1;
+	border: 1px solid #ffffc1;
+}
+
+#tooltip{
+	position:absolute;
+	z-index:999;
+	color:white;
+	font-size:15px;
+}
+
+#tooltip .tipBody{
+	background-color: black;
+	padding: 8px;
+}
+
+
+
+.topnav{
+	position: relative;
+	text-align:right;
+	margin-top:10px;
+	height:100%;
+	cursor:pointer;
+}
+
+
+.topnav:hover{
+	color:#d3d3d3;
+}
+
+.main{
+	width:100%;
+	height:80%;
+	left:0;
+	right:0;
+	margin-left:auto;
+	margin-right:auto;
+	height:40px;
+	bottom:0;
+	margin-top:200px;
+	margin-bottom:auto;
+}
+
+.navi_set{
+	float: right;
+	padding:10px;
+	position: relative;
+}
+
+.header_info {
+	position: absolute;
+	right: 15px; top: 45px;
+	background: #ffff93;
+	display: none;
+	padding: 10px;
+	width:200px;
+	height:150px;
+	z-index:500;
+	box-shadow: 5px 5px 15px 5px gray;
+}
+
+.header_menu {
+	position: absolute;
+	right: 15px; top: 45px;
+	background: #ffff93;
+	font-size:15px;
+	display: none;
+	padding: 10px;
+	width:250px;
+	height:265px;
+	z-index:499;
+	box-shadow: 5px 5px 15px 5px gray;
+}
+
+#main_bottom{
+	bottom:0%;
+	width:100%;
+	height:50px;
+	position: absolute;
+	background:#ddd;
+	font-size:15px;
+	text-align:center;
+	vertical-align:middle;
+	border: 1px solid #ddd;
+	
+}
+#img_handle:hover{
+	background: #dfdfdf;
+}
+
+
+.main{
+	width:100%;
+	height:80%;
+	left:0;
+	right:0;
+	margin-left:auto;
+	margin-right:auto;
+	height:40px;
+	bottom:0;
+	margin-top:200px;
+	margin-bottom:auto;
+}
+
+.title{
+	position: absolute;
+	left: 1%;
+	font-size:20px;
+	font-color:black;
+	text-align:left;
+	width:5%;
+	height:5%;
+}
+
+#idresult{
+	position: absolute;
+	top:10%;
+	left:600px;
+	width:200px;
+	height:80%;
+}
+
+#chatresult{
+	position: absolute;
+	top:10%;
+	left:850px;
+	width:550px;
+	height:80%;
+}
+
+.container {
+	width:100%;
+	height:100%;
+	display:flex;
+	flex-flow:column wrap;
+	align-items:center;
+	justify-content:center;
+}
+
+#cardbox {
+	width:94%;
+	height:94%;
+	padding-left:0.4em;
+	padding-right:0.4em;
+}
+
+#iconImage {
+	display:inline;
+}
+
+#titleText {
+	font-size:1.4em;
+	font-weight:bold;
+	color:#777;
+}
+
+#contentsText {
+	color:#999;
+}
+
+#result {
+	height:60em;
+	overflow-y: auto;
+	background: #ededed;
+}
+
+
+.discussion {
+  	list-style: none;
+  	background: #ededed;
+  	width:100%;
+  	height:90%;
+  	margin: 0;
+  	padding: 0 0 50px 0;
+}
+
+.discussion li {
+  	padding: 0.5em;
+  	overflow: hidden;
+  	display: flex;
+}
+
+.discussion .avatar {
+  	width: 40px;
+  	position: relative;
+}
+
+.discussion .avatar img {
+  	display: block;
+  	width: 100%;
+}
+
+.other .avatar:after {
+  	content: "";
+  	position: absolute;
+  	top: 0;
+  	right: 0;
+  	width: 0;
+  	height: 0;
+  	border: 5px solid white;
+  	border-left-color: transparent;
+  	border-bottom-color: transparent;
+}
+
+.self {
+  	justify-content: flex-end;
+  	align-items: flex-end;
+}
+
+.other{
+	align-items: flex-end;
+}
+
+.self .messages {
+  	order: 1;
+  	max-width:400px;
+  	border-bottom-right-radius: 0;
+  	background-color:#ffffac;
+}
+
+.self .avatar {
+  	order: 2;
+}
+
+.self .avatar:after {
+  	content: "";
+  	position: absolute;
+  	bottom: 0;
+  	left: 0;
+  	width: 0;
+  	height: 0;
+  	border: 5px solid white;
+  	border-right-color: transparent;
+  	border-top-color: transparent;
+  	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.messages {
+  	background: white;
+  	max-width:400px;
+  	padding: 10px;
+  	border-radius: 2px;
+  	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.messages p {
+  	font-size: 1.5em;
+  	margin: 0 0 0.2em 0;
+  	
+}
+
+.time {
+  	font-size: 0.9em;
+  	color: #8f8f8f;
+  	bottom:0%;
+}
+#dataInput{
+	padding: 5px;
+	width:400px; height:20px;
+	font-size:15px;
+}

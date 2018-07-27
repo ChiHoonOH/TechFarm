@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.itbank.TechFarm.tftube.mybatis.VideoMapper">		
+	
+<insert id="insertVideo" parameterType="videoDTO" useGeneratedKeys="true">
+insert into tftube_video
+(member_no,title,description,open,video_name,readcount,image,likep,unlikep,channel,category) values
+(#{member_no},#{title},#{description},#{open},#{video_name},0,#{image},0,0,#{channel},#{category}) 
+</insert>
+
+<delete id="deleteVideo" parameterType="int">
+delete from tftube_video where no=#{no}
+</delete>
+
+<update id="hitUp" parameterType="int">
+update tftube_video set readcount = readcount+1 where no = #{no}
+</update>
+
+<select id="listVideo" resultType="videoDTO">
+ select * from tftube_video order by no desc
+</select>
+
+<select id="listVideo_member_no" parameterType="int" resultType="videoDTO">
+ select * from tftube_video where member_no=#{member_no} order by no desc  
+</select>
+
+<select id="getVideo" resultType="videoDTO" parameterType="int">
+select * from tftube_video where no=#{no} order by no desc
+</select>
+
+<select id="getVideo_member_no" resultType="videoDTO" parameterType="int">
+select * from tftube_video where member_no=#{member_no} order by no desc
+</select> 
+
+ <select id="listRecent_inf" parameterType="int" resultType="video_recentvideoDTO">
+ select a.* from tftube_recentvideo a join tftube_video b on a.video_name=b.video_name where a.member_no=#{member_no};
+ </select> 
+ 
+<!-- update -->
+<update id="updateVideo" parameterType="videoDTO">
+update tftube_video set description=#{description},open=#{open},title=#{title},category=#{category} where no=#{no} 
+</update>
+
+<update id="updateLike" parameterType="videoDTO">
+update tftube_video set likep=#{likep} where no=#{no}
+</update> 
+
+<select id="listVideo_category" parameterType="String" resultType="videoDTO">
+select * from tftube_video where category=#{category}
+</select>
+</mapper>	

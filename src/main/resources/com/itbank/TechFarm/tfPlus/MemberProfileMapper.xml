@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.TechFarm.tfPlus.MemberProfileMapper">
+
+	<select id="memberGoodList" resultType="memberProfileDTO" parameterType="java.util.HashMap">
+		SELECT * FROM (
+			SELECT @NO:=@NO+1 AS ROWNUM, a.* FROM(
+				SELECT * FROM memberprofile )a,(SELECT @NO:=0)b)c
+					WHERE c.ROWNUM BETWEEN #{startRow} AND #{endRow} ORDER BY mGood DESC
+	</select>
+	
+	<select id="joinList" resultType="memberJoinIdDTO">
+		SELECT * FROM memberjoinid
+	</select>
+	
+	<select id="memberProfileCount" resultType="int">
+		SELECT count(*) FROM memberprofile
+	</select>
+	
+	<select id="memberMyList" resultType="memberProfileDTO" parameterType="java.util.HashMap">
+		SELECT * FROM (
+			SELECT @NO:=@NO+1 AS ROWNUM, a.* FROM (
+				SELECT * FROM memberprofile WHERE mProfileId = #{id})a,(SELECT @NO:=0)b)c
+					WHERE c.ROWNUM BETWEEN #{startRow} AND #{endRow} ORDER BY @NO DESC
+	</select>
+	
+	<select id="memberJoinMyList" resultType="memberJoinIdDTO" parameterType="String">
+		SELECT * FROM memberjoinid
+			WHERE memberJoinId = #{id}
+	</select>
+	
+	<select id="memberNumList" resultType="memberProfileDTO" parameterType="int">
+		SELECT * FROM memberprofile
+			WHERE mProfileNum = #{num}
+	</select>
+	
+	<select id="memberAddList" resultType="MemberProfileAddCommentDTO">
+		SELECT * FROM memberprofileaddcomment ORDER BY mRe_step ASC
+	</select>
+	
+	<select id="memberProfileBoardList" resultType="memberProfileBoardDTO" parameterType="java.util.HashMap">
+		SELECT * FROM memberprofileboard
+			WHERE mProfileBoardName = #{profileName}
+	</select>
+	
+	<select id="memberJoinIdCheck" resultType="memberJoinIdDTO" parameterType="java.util.HashMap">
+		SELECT * FROM memberjoinid
+			WHERE memberJoinNum = #{memberJoinNum} AND memberJoinId = #{memberJoinId}
+	</select>
+	
+	<select id="memberJoinIdSearch" resultType="memberJoinIdDTO" parameterType="int">
+		SELECT * FROM memberjoinid
+			WHERE memberJoinNum = #{num}
+	</select>
+	
+	<select id="memberProfileCheck" resultType="memberProfileDTO" parameterType="java.util.HashMap">
+		SELECT * FROM memberprofile
+			WHERE mProfileName = #{profileName} AND mProfileId = #{profileId}
+	</select>
+	
+	<select id="memberProfileTOP" resultType="memberProfileDTO" parameterType="int">
+		SELECT * FROM memberprofile
+			ORDER BY mGood DESC LIMIT #{top}
+	</select>
+	
+	<select id="memberProfileUpdate" resultType="memberProfileDTO" parameterType="int">
+		SELECT * FROM memberprofile
+			WHERE mProfileNum = #{profileNum}
+	</select> 
+	
+	<select id="memberProfileBoardUpdate" resultType="memberProfileBoardDTO" parameterType="int">
+		SELECT * FROM memberprofileboard
+			WHERE mProfileBoardPK = #{profileBoardPK}
+	</select>
+	
+	<insert id="memberProfileInsert" parameterType="memberProfileDTO" useGeneratedKeys="true">
+		INSERT INTO memberprofile(mProfileName,mCheckOption,mPhoto,mProfileContents,mProfileId) VALUES
+		(
+			#{mProfileName},
+			#{mCheckOption},
+			#{mPhoto},
+			#{mProfileContents},
+			#{mProfileId}
+		)
+	</insert>
+	
+	<insert id="memberProfileBoardInsert" parameterType="memberProfileDTO" useGeneratedKeys="true">
+		INSERT INTO memberprofileboard(mProfileBoardPhoto,mProfileBoardTitle,mProfileBoardContents,mProfileBoardName,mProfileBoardId) VALUES
+		(
+			#{mProfileBoardPhoto},
+			#{mProfileBoardTitle},
+			#{mProfileBoardContents},
+			#{mProfileBoardName},
+			#{mProfileBoardId}
+		)
+	</insert>
+	
+	<insert id="memberJoinInsert" parameterType="java.util.HashMap" useGeneratedKeys="true">
+		INSERT INTO memberjoinid(memberJoinNum,memberJoinId) VALUES
+		(
+			#{profileNum},
+			#{id}
+		)
+	</insert>
+	
+	<insert id="memberAddListInsert" parameterType="memberProfileAddCommentDTO" useGeneratedKeys="true">
+		INSERT INTO memberprofileaddcomment(mProfileBoardFK,mProfileAddName,mProfileAddContents,mProfileAddId,mRe_step,mRe_level) VALUES
+		(
+			#{mProfileBoardFK},
+			#{mProfileAddName},
+			#{mProfileAddContents},
+			#{mProfileAddId},
+			#{mRe_step},
+			#{mRe_level}
+		)
+	</insert>
+	
+	<delete id="memberJoinDelete" parameterType="int">
+		DELETE FROM memberjoinid
+			WHERE memberJoinPK = #{memberJoinPK}
+	</delete>
+	
+	<delete id="memberProfileDelete" parameterType="int">
+		DELETE FROM memberprofile
+			WHERE mProfileNum = #{profileNum}
+	</delete>
+	
+	<delete id="memberAddDelete" parameterType="int">
+		DELETE FROM memberprofileaddcomment
+			WHERE mProfileAddPK = #{profileAddPK}
+	</delete>
+	
+	<delete id="memberProfileBoardDelete" parameterType="int">
+		DELETE FROM memberprofileboard
+			WHERE mProfileBoardPK = #{profileBoardPK}
+	</delete>
+	
+	<update id="memberProfileJoin" parameterType="int">
+		UPDATE memberprofile SET mGood = mGood + 1
+			WHERE mProfileNum = #{profileNum}
+	</update>
+	
+	<update id="memberProfileUnJoin" parameterType="int">
+		UPDATE memberprofile SET mGood = mGood - 1
+			WHERE mProfileNum = #{profileNum}
+	</update>
+	
+	<update id="memberProfileUpdatePro" parameterType="memberProfileDTO">
+		UPDATE memberprofile SET
+			mProfileName = #{mProfileName},
+			mCheckOption = #{mCheckOption},
+			mProfileContents = #{mProfileContents},
+			mPhoto = #{mPhoto}
+				WHERE mProfileNum = #{mProfileNum}
+	</update>
+	
+	<update id="memberProfileBoardUpdatePro" parameterType="memberProfileBoardDTO">
+		UPDATE memberprofileboard SET
+			mProfileBoardTitle = #{mProfileBoardTitle},
+			mProfileBoardContents = #{mProfileBoardContents},
+			mProfileBoardPhoto = #{mProfileBoardPhoto}
+				WHERE mProfileBoardPK = #{mProfileBoardPK}
+	</update>
+	
+	<update id="memberAddUpdateSub" parameterType="int">
+		UPDATE memberprofileaddcomment SET 
+			mRe_step = mRe_step+1 WHERE mRe_step > #{re_step}
+	</update>
+	
+	<update id="memberAddUpdateSub2">
+		UPDATE memberprofileaddcomment SET 
+			mRe_step = mRe_step+1
+	</update>
+
+</mapper>

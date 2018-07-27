@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.itbank.TechFarm.tftube.mybatis.UnlikeVideoMapper">
+
+<!-- <select id="unlikecount" parameterType="int" resultType="int">
+select count(*) from tftube_unlike where video_no=#{video_no}
+</select>
+
+<insert id="unlike_insert" parameterType="unlikevideoDTO">
+insert into tftube_unlike(member_no,video_no,unlike_status)values(#{member_no},#{video_no},'on')
+</insert>
+
+ 
+<delete id="unlike_delete" parameterType="java.util.HashMap">
+delete from tftube_unlike where member_no=#{member_no} and video_no=#{video_no}
+</delete> 
+
+<select id="likevideo_list_ustatus" parameterType="java.util.HashMap" resultType="int">
+select unlike_status from tftube_unlike where member_no=#{member_no} and video_no=#{video_no}
+</select>-->
+
+<insert id="unlike_insert" parameterType="unlikevideoDTO">
+insert into tftube_unlike(member_no,video_no,unlike_status)values(#{member_no},#{video_no},1)
+</insert>
+
+ 
+<delete id="unlike_delete" parameterType="java.util.HashMap">
+delete from tftube_unlike where member_no=#{member_no} and video_no=#{video_no}
+</delete>
+
+<select id="unlikecount" parameterType="int" resultType="int">
+select count(*) from tftube_unlike where video_no=#{video_no}
+</select>
+
+<select id="likevideo_list_ustatus" parameterType="java.util.HashMap" resultType="int">
+select unlike_status from tftube_unlike where member_no=#{member_no} and video_no=#{video_no}
+</select>
+
+
+
+
+</mapper>

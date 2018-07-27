@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.itbank.techfarm.contacts.ContactsMapper">
+	<select id = "listContacts" resultType = "contactsDTO">
+		select * from contacts where id=#{id} order by name asc;
+	</select>
+  
+  	<insert id="addContact" parameterType="contactsDTO" useGeneratedKeys="true">
+	    insert into contacts(id,photo,name,company,jobtitle,email,phone,notes,address,birthday,relationship)
+	     values(
+	   		#{id}, #{photo}, #{name}, #{company}, #{jobtitle}, #{email},
+	   		#{phone}, #{notes}, #{address}, #{birthday}, #{relationship} )
+	</insert>
+	
+  	<select id = "getContact" parameterType="int" resultType = "contactsDTO">
+  		select * from contacts where no=#{no}
+  	</select>
+  	
+	<update id="editContact" parameterType="contactsDTO">
+		update contacts set photo=#{photo}, name=#{name}, company=#{company}, 
+			jobtitle=#{jobtitle}, email=#{email}, phone=#{phone}, notes=#{notes}, 
+			address=#{address}, birthday=#{birthday}, relationship=#{relationship} 
+		where no=#{no}
+	</update>
+	
+  	<delete id="deleteContact" parameterType="int">
+  		delete from contacts where no=#{no}
+  	</delete>
+  		
+</mapper>

@@ -1,0 +1,112 @@
+body, div, ul, li, table, tr, td, th{margin:0px; padding:0px;}
+hr.tw {
+	width:500px;
+	border-bottom:0px;
+	color:red;
+}
+#viewtitle{
+	position: absolute;
+	left: 130px; 
+	padding: 10px;
+	font-size:25px;
+	color:white;
+	width:350px;
+	height:50px;
+	z-index:5;
+}
+
+#homebutton{
+	position: absolute;
+	left: 5px; 
+	padding: 10px;
+	font-size:25px;
+	width:350px;
+	height:50px;
+	z-index:5;
+}
+
+#header1 {
+	height:50px;
+	width:100%;
+	position: relative;
+	background:#000000;
+	border: 1px solid #000000;
+}
+#tooltip{
+	position:absolute;
+	z-index:999;
+	color:white;
+	font-size:15px;
+}
+#tooltip .tipBody{
+	background-color: black;
+	padding: 8px;
+}
+.topnav{
+	position: relative;
+	text-align:right;
+	margin-top:10px;
+	height:100%;
+	cursor:pointer;
+}
+.topnav:hover{
+	color:#d3d3d3;
+}
+.main1{
+	width:100%;
+	height:80%;
+	left:0;
+	right:0;
+	margin-left:auto;
+	margin-right:auto;
+	height:40px;
+	bottom:0;
+	margin-top:200px;
+	margin-bottom:auto;
+}
+.navi_set{
+	float: right;
+	padding:10px;
+	position: relative;
+}
+.header_info {
+	position: absolute;
+	right: 15px; top: 45px;
+	background: #000000;
+	display: none;
+	padding: 10px;
+	width:200px;
+	height:150px;
+	font-size:12px;
+	color:white;
+	z-index:500;
+	box-shadow: 5px 5px 15px 5px gray;
+}
+.header_menu {
+	position: absolute;
+	right: 15px; top: 45px;
+	background: #000000;
+	color:white;
+	font-size:15px;
+	display: none;
+	padding: 10px;
+	width:250px;
+	height:265px;
+	z-index:499;
+	box-shadow: 5px 5px 15px 5px gray;
+}
+#main_bottom{
+	bottom:0%;
+	width:100%;
+	height:50px;
+	position: absolute;
+	background:#000000;
+	font-size:15px;
+	text-align:center;
+	vertical-align:middle;
+	border: 1px solid #ddd;
+	
+}
+#img_handle:hover{
+	background: #dfdfdf;
+}

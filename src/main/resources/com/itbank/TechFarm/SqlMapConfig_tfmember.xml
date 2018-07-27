@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration 
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration> 
+	<properties resource="com/itbank/TechFarm/db.properties"/>
+	<typeAliases>
+		<typeAlias alias="MemberDTO" type="com.itbank.TechFarm.login.member.MemberDTO"/>
+	</typeAliases>
+  <environments default="development"> 
+      <environment id="development"> 
+      <transactionManager type="JDBC"/> 
+      <dataSource type="POOLED"> 
+        <property name="driver" value="${driver}"/> 
+        <property name="url" value="${url.tfmember}"/> 
+        <property name="username" value="${username.tfmember}"/> 
+        <property name="password" value="${password.tfmember}"/> 
+      </dataSource> 
+    </environment> 
+  </environments> 
+  <mappers> 
+    <mapper resource="com/itbank/TechFarm/login/member/MemberMapper.xml"/>
+  </mappers> 
+</configuration> 

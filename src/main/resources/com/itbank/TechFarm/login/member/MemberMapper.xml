@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.itbank.TechFarm.login.member.MemberMapper">
+	<select id="getLogin" resultType="MemberDTO">
+    	select id,passwd from member where id=#{id} or email=#{id};
+  	</select>
+  	
+  	<select id="getMember" resultType="MemberDTO">
+    	select * from member where id=#{id};
+  	</select>
+  	
+  
+   <insert id="insertMember" parameterType="MemberDTO" useGeneratedKeys="true">
+	    insert into member(id,passwd,name,email,birthday_year,birthday_month,birthday_day,sex,joindate,nickname)
+	     values(
+	   		#{id},
+	   		#{passwd},
+	   		#{name},
+	   		#{email},
+	   		#{birthday_year},
+	   		#{birthday_month},
+	   		#{birthday_day},
+	   		#{sex},
+	   		sysdate(),
+	   		default);
+	</insert>
+	
+	<select id="getMember_by_name" resultType="MemberDTO" parameterType="int">
+		select * from member where no=#{no}
+	</select>
+	
+	<insert id="editMember" parameterType="MemberDTO">
+	    update member set 
+	    name=#{name}, 
+	    email=#{email}, 
+	    birthday_year=#{birthday_year},
+	    birthday_month=#{birthday_month},
+	   	birthday_day=#{birthday_day},
+	   	sex=#{sex}
+	    where id=#{id};
+	</insert>
+	
+	<insert id="editPw" parameterType="MemberDTO">
+	    update member set 
+	    passwd=#{passwd}
+	    where id=#{id};
+	</insert>
+	
+	<insert id="deleteMember" parameterType="int">
+	    delete from member where no=#{no};
+	</insert>
+	
+	<select id="searchId" resultType="MemberDTO" parameterType="String">
+		select * from member where email=#{email}; 
+	</select>
+  
+</mapper>

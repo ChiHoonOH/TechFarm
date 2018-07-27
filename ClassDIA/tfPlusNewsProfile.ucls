@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.0" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="com.itbank.TechFarm.tfPlusController.tfPlusNewsProfileController" 
+    project="techfarm" 
+    file="/techfarm/src/main/java/com/itbank/TechFarm/tfPlusController/tfPlusNewsProfileController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="1073" width="586" x="22" y="-292"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="2" language="java" name="com.itbank.TechFarm.tfPlusDAO.NewsProfileDAO" project="techfarm" 
+    file="/techfarm/src/main/java/com/itbank/TechFarm/tfPlusDAO/NewsProfileDAO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="661" width="286" x="719" y="-229"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="3" language="java" name="com.itbank.TechFarm.tfPlusDAO.NewsProfileDAOImpl" project="techfarm" 
+    file="/techfarm/src/main/java/com/itbank/TechFarm/tfPlusDAO/NewsProfileDAOImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="676" width="308" x="1137" y="-231"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.itbank.TechFarm.tfPlusDAO.NewsProfileMapper" project="techfarm" 
+    file="/techfarm/src/main/java/com/itbank/TechFarm/tfPlusDAO/NewsProfileMapper.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="698" width="346" x="698" y="457"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.itbank.TechFarm.tfPlusDTO.NewsProfileDTO" project="techfarm" 
+    file="/techfarm/src/main/java/com/itbank/TechFarm/tfPlusDTO/NewsProfileDTO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="533" width="200" x="1148" y="470"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="6">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <association id="7">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="8" name="newsProfileDAO">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="9" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
